@@ -72,3 +72,8 @@
 " Maps{
   nnoremap <leader>b :BufExplorer<cr>
 " }
+"
+" Settings for VimClojure{
+  let vimclojure#HighlightBuiltins=1      " Highlight Clojure's builtins
+  let vimclojure#ParentRainbow=1           " Rainbow parentheses'!
+" }
