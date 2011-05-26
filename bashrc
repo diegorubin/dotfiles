@@ -1,32 +1,279 @@
-# .bashrc
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# don't put duplicate lines in the history. See bash(1) for more options
+# ... or force ignoredups and ignorespace
+HISTCONTROL=ignoredups:ignorespace
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# User specific aliases and functions
-export PATH=$PATH:/opt/ruby-enterprise-1.8.7-2010.02/bin/
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+esac
 
-# RVM
-if [[ -s ~/.rvm/scripts/rvm ]]
-then
-    source ~/.rvm/scripts/rvm
-    source ~/.rvm/scripts/completion
-    rvm reload
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
 fi
 
-export LD_LIBRARY_PATH+=":/usr/local/lib"
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
 
-alias qa_exame="ssh exame@qa.exame.abril.com.br -p 5022"
-alias dev_exame="ssh exame@dev.exame.abril.com.br -p 5022"
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
 
-alias stage="ssh exame@dev.exame.abril.com.br -g -p 5022 -L6666:172.16.2.15:80"
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
 
-# CIT COMMANDS
-alias enable_proxy="export http_proxy='http://proxycps2.cit:3128/'"
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
 
-# RAILS COMMANDS
+# Colours
+export BLUE="\[\033[1;34m\]"
+export PURPLE="\[\033[1;35m\]"
+export NO_COLOR="\[\e[0m\]"
+export GRAY="\[\033[1;31m\]"
+export GREEN="\[\033[1;32m\]"
+export LIGHT_GRAY="\[\033[1;37m\]"
+export LIGHT_GREEN="\[\033[1;32m\]"
+export LIGHT_RED="\[\033[1;31m\]"
+export RED="\[\033[1;31m\]"
+export WHITE="\[\033[1;37m\]"
+export YELLOW="\[\033[1;33m\]"
 
-alias test_app="RAILS_ENV=test rake db:drop db:create db:migrate && autospec"
-alias reset_db="rake db:drop db:create db:migrate db:categories db:populate_tags db:seed db:change_home_template db:change_guides_template db:new_links_home db:change:add_default_sources"
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
+# Set window title
+title() {
+  echo -ne "\033]0;$@\007";
+}
+
+# Usage: f /some/path [grep options]
+f() {
+  local path="$1"
+  shift
+  find "$path" -follow -name '*' | xargs grep "$*"
+}
+
+# reload source
+reload() { source ~/.bashrc; }
+
+custom_prompt () {
+  local BRANCH=`git branch 2> /dev/null | grep \* | sed 's/* //'`
+
+  if [[ "$BRANCH" = "" ]]; then
+    BRANCH=`git status 2> /dev/null | grep "On branch" | sed 's/# On branch //'`
+  fi
+
+  local RUBY_VERSION=`ruby -e "puts RUBY_VERSION"`
+  local RAILS_PROMPT=""
+  local RUBY_PROMPT=""
+  local STATUS=`git status 2>/dev/null`
+  local PROMPT_COLOR=$GREEN
+  local STATE=" "
+  local NOTHING_TO_COMMIT="# Initial commit"
+  local BEHIND="# Your branch is behind"
+  local AHEAD="# Your branch is ahead"
+  local UNTRACKED="# Untracked files"
+  local DIVERGED="have diverged"
+  local CHANGED="# Changed but not updated"
+  local TO_BE_COMMITED="# Changes to be committed"
+  local LOG=`git log -1 2> /dev/null`
+
+  if [[ "$RAILS_VERSION" != "" ]]; then
+    RAILS_PROMPT="${RAILS_VERSION}@"
+  fi
+
+  if [[ "$GEMSET_NAME" != "" ]]; then
+    RUBY_PROMPT="${GREEN}[${RAILS_PROMPT}${NO_COLOR} "
+  else
+    RUBY_PROMPT="${GREEN}[${RAILS_PROMPT}${RUBY_VERSION}]${NO_COLOR} "
+  fi
+
+  if [ "$STATUS" != "" ]; then
+    if [[ "$STATUS" =~ "$NOTHING_TO_COMMIT" ]]; then
+      PROMPT_COLOR=$RED
+      STATE=""
+    elif [[ "$STATUS" =~ "$DIVERGED" ]]; then
+      PROMPT_COLOR=$RED
+      STATE="${STATE}${RED}↕${NO_COLOR}"
+    elif [[ "$STATUS" =~ "$BEHIND" ]]; then
+      PROMPT_COLOR=$RED
+      STATE="${STATE}${RED}↓${NO_COLOR}"
+    elif [[ "$STATUS" =~ "$AHEAD" ]]; then
+      PROMPT_COLOR=$RED
+      STATE="${STATE}${RED}↑${NO_COLOR}"
+    elif [[ "$STATUS" =~ "$CHANGED" ]]; then
+      PROMPT_COLOR=$RED
+      STATE=""
+    elif [[ "$STATUS" =~ "$TO_BE_COMMITED" ]]; then
+      PROMPT_COLOR=$RED
+      STATE=""
+    else
+      PROMPT_COLOR=$GREEN
+      STATE=""
+    fi
+
+    if [[ "$STATUS" =~ "$UNTRACKED" ]]; then
+      STATE="${STATE}${YELLOW}*${NO_COLOR}"
+    fi
+
+    PS1="\n[${RED}\u${GREEN}@\h ]${YELLOW}\w\a${NO_COLOR} (${PROMPT_COLOR}${BRANCH}${NO_COLOR}${STATE}${NO_COLOR})\n${BLUE}\$${NO_COLOR} "
+  else
+    PS1="\n${NO_COLOR}[${RED}\u${GREEN}@\h ${NO_COLOR}]${YELLOW}\w\a${NO_COLOR}\n${BLUE}\$${NO_COLOR} "
+  fi
+}
+
+# taken from http://github.com/bryanl/zshkit/
+git-track () {
+  local BRANCH=`git branch 2> /dev/null | grep \* | sed 's/* //'`
+  git config branch.$BRANCH.remote origin
+  git config branch.$BRANCH.merge refs/heads/$BRANCH
+  echo "tracking origin/$BRANCH"
+}
+github-url () { git config remote.origin.url | sed -En 's/git(@|:\/\/)github.com(:|\/)(.+)\/(.+).git/https:\/\/github.com\/\3\/\4/p'; }
+github-go () { open $(github-url); }
+git-scoreboard () { git log | grep '^Author' | sort | uniq -ci | sort -r; }
+manp () { man -t $* | ps2pdf - - | open -f -a Preview; }
+
+PROMPT_COMMAND=custom_prompt
+
+
+export PATH
+
+
+######################
+# CUSTOM STARTS HERE #
+######################
+
+# Aliases #
+###########
+# projects
+alias xul='cd ~/programming/xul'
+
+# ls
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+
+# chmod and permissions commands
+alias mx='chmod a+x'
+alias 000='chmod 000'
+alias 644='chmod 644'
+alias 755='chmod 755'
+
+# Misc
+alias a='alias'
+alias c='clear'
+alias h='htop'
+alias x='exit'
+alias pci='lspci'
+alias del='rm --target-directory=$HOME/.Trash/'
+alias font='fc-cache -v -f'
+alias firefox3='applications/firefox/firefox'
+
+# Extracting
+extract () {
+  if [ -f $1 ] ; then
+      case $1 in
+          *.tar.bz2)   tar xvjf $1    ;;
+          *.tar.gz)    tar xvzf $1    ;;
+          *.bz2)       bunzip2 $1     ;;
+          *.rar)       rar x $1       ;;
+          *.gz)        gunzip $1      ;;
+          *.tar)       tar xvf $1     ;;
+          *.tbz2)      tar xvjf $1    ;;
+          *.tgz)       tar xvzf $1    ;;
+          *.zip)       unzip $1       ;;
+          *.Z)         uncompress $1  ;;
+          *.7z)        7z x $1        ;;
+          *)           echo "don't know how to extract '$1'..." ;;
+      esac
+  else
+      echo "'$1' is not a valid file!"
+  fi
+}
+
+export GREP_OPTIONS="--color=auto"
+
+findf() {
+ find . | xargs grep $1 -islno
+}
+#Automatically do an ls after each cd
+cd() {
+  if [ -n "$1" ]; then
+    builtin cd "$@" && ls
+  else
+    builtin cd ~ && ls
+  fi
+}
+
