@@ -10,7 +10,6 @@
   set clipboard+=unnamed
   set linebreak                   " when wrapping, uses chars listed in breakt
   set breakat=\ ^I!@*-+;:,./?     " when wrapping, break at these characters
-  set showbreak=…                 " what to show at the start of a wrapped line
 " }
 
 " Vim-UI {
