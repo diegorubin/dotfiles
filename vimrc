@@ -41,9 +41,9 @@
 " }
 
 " Coding Rules {
-  set tabstop=4           " real tabs will show 8 spaces
-  set softtabstop=4       " how many spaces in a tabstop
-  set shiftwidth=4        " sw: indent size
+  set tabstop=2           " real tabs will show 8 spaces
+  set softtabstop=2       " how many spaces in a tabstop
+  set shiftwidth=2        " sw: indent size
   set expandtab           " no tabs - space in place of tabstops
   set smarttab            " sta: space in place of tabs in a new line
 
@@ -58,6 +58,7 @@
 
   " Other type files
   au  FileType ruby setl sw=2 sts=2 et
+  au  FileType python setl sw=4 sts=4 et
   au  FileType perl setl sw=5 sts=5 et
 " }
 

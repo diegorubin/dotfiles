@@ -216,7 +216,7 @@ manp () { man -t $* | ps2pdf - - | open -f -a Preview; }
 
 PROMPT_COMMAND=custom_prompt
 
-
+PATH=$PATH:/sbin:/usr/bin
 export PATH
 
 
