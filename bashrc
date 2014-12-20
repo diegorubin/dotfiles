@@ -286,3 +286,9 @@ cd() {
   fi
 }
 
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export JAVA_HOME=~/Applications/java
+
+ssh-add ~/.ssh/github
+
