@@ -103,7 +103,7 @@ NeoBundle 'mattn/webapi-vim'
 " Gui configs
 
 if has("gui_running")
-    set guioptions-=T
+    set guioptions+=m
     colorscheme torte
     set guifont=Monospace
 endif
