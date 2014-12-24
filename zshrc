@@ -14,7 +14,15 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
+# constants
+export DIEGORUBINREPO="$HOME/Repos/diegorubin/"
+export SSH_KEY_PATH="$HOME/.ssh"
+
 # aliases
+alias repodiegorubin='cd $DIEGORUBINREPO'
+
+# rvm
+[[ -s "$HOME/.rvm/scripts/rvm"  ]] && . "$HOME/.rvm/scripts/rvm"
 
 # Applications PATH
 export PATH="$PATH:$HOME/Applications/java/bin:$HOME/Applications/maven/bin:$HOME/bin"
@@ -24,8 +32,11 @@ export JAVA_HOME="$HOME/Applications/java"
 export MAVEN_HOME="$HOME/Applications/maven/bin"
 export M2_HOME="$HOME/Applications/maven"
 
+# diegorubin functions
+function loadsshkey() {
+  ssh-add "$SSH_KEY_PATH/$1"
+}
+
 # ciandt functions
 source $ZSH/ciandt.zsh
-
-[[ -s "$HOME/.rvm/scripts/rvm"  ]] && . "$HOME/.rvm/scripts/rvm"
 
