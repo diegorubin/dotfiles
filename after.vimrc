@@ -100,7 +100,8 @@ NeoBundle 'mattn/gist-vim'
 " web APIs support
 NeoBundle 'mattn/webapi-vim'
 
-" Gui configs
+" Gui Configs
+" ==============
 
 if has("gui_running")
     set guioptions+=m
@@ -108,11 +109,19 @@ if has("gui_running")
     set guifont=Monospace
 endif
 
+" Map Configs
+" ==============
+
 " Windows{
     nmap <leader>s :split<CR>
     nmap <leader>v :vsplit<CR>
     nmap <leader>o :only<CR>
 " " }}
+
+" Editor Configs
+" ==============
+
+set cursorcolumn
 
 " Tabs {
     " size of a hard tabstop
