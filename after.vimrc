@@ -121,7 +121,11 @@ endif
 " Editor Configs
 " ==============
 
+" Highlighting column
 set cursorcolumn
+
+" Set the cursor to stop when it hits the end of a line
+set ve=
 
 " Tabs {
     " size of a hard tabstop
