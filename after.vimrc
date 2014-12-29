@@ -66,6 +66,9 @@ NeoBundle 'vim-scripts/blockle.vim'
 " lightweight Rspec runner for Vim
 NeoBundle 'josemarluedke/vim-rspec'
 
+" Java
+NeoBundle 'JavaKit'
+
 " syntax support
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tsaleh/vim-tmux'
