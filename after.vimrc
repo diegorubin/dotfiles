@@ -119,6 +119,7 @@ endif
     nmap <leader>s :split<CR>
     nmap <leader>v :vsplit<CR>
     nmap <leader>o :only<CR>
+    nmap <leader>p :NERDTreeToggle<CR>
 " " }}
 
 " Editor Configs
