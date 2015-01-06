@@ -64,7 +64,9 @@ NeoBundle 'apidock.vim'
 " toggle ruby blocks style
 NeoBundle 'vim-scripts/blockle.vim'
 " lightweight Rspec runner for Vim
-NeoBundle 'josemarluedke/vim-rspec'
+NeoBundle 'thoughtbot/vim-rspec'
+" Rvm integration
+NeoBundle 'tpope/vim-rvm'
 " Rubocop
 NeoBundle 'ngmy/vim-rubocop'
 
