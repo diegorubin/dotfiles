@@ -65,6 +65,8 @@ NeoBundle 'apidock.vim'
 NeoBundle 'vim-scripts/blockle.vim'
 " lightweight Rspec runner for Vim
 NeoBundle 'josemarluedke/vim-rspec'
+" Rubocop
+NeoBundle 'ngmy/vim-rubocop'
 
 " Java
 NeoBundle 'JavaKit'
