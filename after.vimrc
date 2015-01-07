@@ -69,6 +69,8 @@ NeoBundle 'thoughtbot/vim-rspec'
 NeoBundle 'tpope/vim-rvm'
 " Rubocop
 NeoBundle 'ngmy/vim-rubocop'
+" Flog
+NeoBundle 'fousa/vim-flog'
 
 " Java
 NeoBundle 'JavaKit'
