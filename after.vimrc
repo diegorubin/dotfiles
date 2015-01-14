@@ -75,6 +75,9 @@ NeoBundle 'fousa/vim-flog'
 " Java
 NeoBundle 'JavaKit'
 
+" Javascript
+NeoBundle 'Shutnik/jshint2.vim'
+
 " syntax support
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tsaleh/vim-tmux'

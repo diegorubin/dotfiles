@@ -28,9 +28,13 @@ alias repodiegorubin='cd $DIEGORUBINREPO'
 export PATH="$PATH:$HOME/Applications/java/bin:$HOME/Applications/maven/bin:$HOME/bin"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
+# Java configuration
 export JAVA_HOME="$HOME/Applications/java"
 export MAVEN_HOME="$HOME/Applications/maven/bin"
 export M2_HOME="$HOME/Applications/maven"
+
+# npm configuration
+alias jshint='~/.npm/jshint/2.5.11/package/bin/jshint'
 
 # diegorubin functions
 function loadsshkey() {
