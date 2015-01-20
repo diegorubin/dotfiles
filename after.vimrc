@@ -70,7 +70,7 @@ NeoBundle 'tpope/vim-rvm'
 " Rubocop
 NeoBundle 'ngmy/vim-rubocop'
 " Flog
-NeoBundle 'fousa/vim-flog'
+NeoBundle 'vrybas/vim-flog'
 
 " Java
 NeoBundle 'JavaKit'
@@ -96,6 +96,7 @@ NeoBundle 'elixir-lang/vim-elixir'
 NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'groenewege/vim-less'
+NeoBundle 'nono/vim-handlebars'
 
 " Support and minor
 
@@ -151,4 +152,7 @@ set ve=
     " other than the (hard)tabstop
     set softtabstop=2
 " }
+
+" Syntax
+au BufReadPost *.hbs set syntax=html
 
