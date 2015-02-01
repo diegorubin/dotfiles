@@ -78,6 +78,9 @@ NeoBundle 'JavaKit'
 " Javascript
 NeoBundle 'Shutnik/jshint2.vim'
 
+" RunMySource
+NeoBundle 'diegorubin/vim-runmysource'
+
 " syntax support
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tsaleh/vim-tmux'
@@ -112,6 +115,8 @@ NeoBundle 'scrooloose/vim-space'
 NeoBundle 'mattn/gist-vim'
 " web APIs support
 NeoBundle 'mattn/webapi-vim'
+" Github issues
+NeoBundle 'jaxbot/github-issues.vim'
 
 " Gui Configs
 " ==============
