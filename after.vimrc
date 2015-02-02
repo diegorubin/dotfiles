@@ -100,6 +100,7 @@ NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'nono/vim-handlebars'
+NeoBundle 'tkztmk/vim-vala'
 
 " Support and minor
 
