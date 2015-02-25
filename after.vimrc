@@ -118,6 +118,8 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'mattn/webapi-vim'
 " Github issues
 NeoBundle 'jaxbot/github-issues.vim'
+" Geeknote
+NeoBundle 'neilagabriel/vim-geeknote'
 
 " Gui Configs
 " ==============
@@ -161,4 +163,5 @@ set ve=
 
 " Syntax
 au BufReadPost *.hbs set syntax=html
+au BufReadPost *.vala set syntax=vala
 

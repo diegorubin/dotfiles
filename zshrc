@@ -41,6 +41,16 @@ function loadsshkey() {
   ssh-add "$SSH_KEY_PATH/$1"
 }
 
+function findlabel() {
+  extensions=$2
+  if [ -z "$extensions" ]
+  then
+    extensions=.rb 
+  fi
+
+  sentinel -d . -p "\\\[$1\\\]" -c -v -r --extensions $extensions --exclude "coverage|.git"
+}
+
 # ciandt functions
 source $ZSH/ciandt.zsh
 
