@@ -2,7 +2,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="robbyrussell"
 
-plugins=(git)
+plugins=(git python hermes)
 
 # User configuration
 
@@ -51,6 +51,10 @@ function findlabel() {
   sentinel -d . -p "\\\[$1\\\]" -c -v -r --extensions $extensions --exclude "coverage|.git"
 }
 
-# ciandt functions
+# functions for git
+function abort_last_commit() {
+  git reset --soft HEAD~1
+}
+
 source $ZSH/ciandt.zsh
 
