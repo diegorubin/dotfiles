@@ -1,3 +1,4 @@
+call neobundle#append()
 " file tree
 NeoBundle 'scrooloose/nerdtree'
 " file tree and tabs interaction
@@ -7,7 +8,7 @@ NeoBundle 'scrooloose/nerdcommenter'
 " fuzzy file open
 NeoBundle 'kien/ctrlp.vim'
 " popup completion menu
-NeoBundle 'AutoComplPop'
+" NeoBundle 'AutoComplPop'
 " tags list navigation
 "NeoBundle 'taglist.vim'
 " yank history
@@ -83,12 +84,10 @@ NeoBundle 'diegorubin/vim-runmysource'
 
 " syntax support
 NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'tsaleh/vim-tmux'
 NeoBundle 'Puppet-Syntax-Highlighting'
 NeoBundle 'JSON.vim'
 NeoBundle 'tpope/vim-cucumber'
 NeoBundle 'tpope/vim-haml'
-NeoBundle 'tpope/vim-markdown'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'vitaly/vim-syntastic-coffee'
 NeoBundle 'vim-scripts/jade.vim'
@@ -116,10 +115,8 @@ NeoBundle 'scrooloose/vim-space'
 NeoBundle 'mattn/gist-vim'
 " web APIs support
 NeoBundle 'mattn/webapi-vim'
-" Github issues
-NeoBundle 'jaxbot/github-issues.vim'
-" Geeknote
-NeoBundle 'neilagabriel/vim-geeknote'
+
+call neobundle#end()
 
 " Gui Configs
 " ==============
