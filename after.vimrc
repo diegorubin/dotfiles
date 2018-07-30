@@ -100,6 +100,8 @@ NeoBundle 'ekalinin/Dockerfile.vim'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'nono/vim-handlebars'
 NeoBundle 'tkztmk/vim-vala'
+NeoBundle 'mfukar/robotframework-vim'
+NeoBundle 'leafgarland/typescript-vim'
 
 " Support and minor
 
