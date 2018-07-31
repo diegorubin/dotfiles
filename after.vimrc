@@ -164,6 +164,11 @@ set ve=
 au BufReadPost *.hbs set syntax=html
 au BufReadPost *.vala set syntax=vala
 
+au BufReadPost *.cs set tabstop=4
+
+au BufReadPost *.html set tw=0
+au BufReadPost *.robot set tw=0
+
 let NERDTreeIgnore = ['\.o$', '\.gcda$', '\.gcno$']
 
 let g:vimrubocop_config = '~/.rubocop.yml'
